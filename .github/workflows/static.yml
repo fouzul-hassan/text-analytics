@@ -21,12 +21,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
       # Step to check out the repository contents
       - name: Checkout Repository
@@ -40,8 +39,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Specify the path to your static HTML files; use '.' if all files in the repo are needed
-          path: '.'
+          path: '.'  # Adjust the path if your static files are in a subdirectory (e.g., './public' or './dist')
 
       # Step to deploy to GitHub Pages
       - name: Deploy to GitHub Pages
